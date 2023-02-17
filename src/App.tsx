@@ -5,6 +5,7 @@ import { GlobalStyle } from './styles/global'
 import { Router } from './Router'
 import { UserProvider } from './contexts/UserContext'
 import { PostProvider } from './contexts/PostContext'
+import { ToastContainer } from 'react-toastify'
 
 export function App() {
   return (
@@ -18,6 +19,7 @@ export function App() {
       </BrowserRouter>
 
       <GlobalStyle />
+      <ToastContainer />
     </ThemeProvider>
   )
 }

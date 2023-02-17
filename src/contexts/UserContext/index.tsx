@@ -2,6 +2,7 @@ import { createContext } from 'use-context-selector'
 import { IUser } from '../../interfaces/IUser'
 import { ReactNode, useCallback, useEffect, useState } from 'react'
 import { api } from '../../lib/axios'
+import { errorMessage } from '../../utils/toastify'
 
 interface IUserContextType {
   user: IUser
@@ -31,8 +32,11 @@ export function UserProvider({ children }: IUserProviderProps) {
           followers: data?.followers,
           htmlURL: data?.html_url,
         } as IUser)
+        setLoadingUser(false)
       })
-      .finally(() => setLoadingUser(false))
+      .catch(() => {
+        errorMessage('Erro ao buscar os dados do usuário!')
+      })
   }, [])
 
   useEffect(() => {
