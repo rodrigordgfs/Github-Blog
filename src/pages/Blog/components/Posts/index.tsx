@@ -14,6 +14,7 @@ export function Posts() {
         return (
           <PostCard
             key={post.id}
+            number={post.number}
             title={post.title}
             body={post.body}
             createdAt={post.createdAt}

@@ -9,13 +9,14 @@ import { PostProvider } from './contexts/PostContext'
 export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
-      <UserProvider>
-        <PostProvider>
-          <BrowserRouter>
+      <BrowserRouter>
+        <UserProvider>
+          <PostProvider>
             <Router />
-          </BrowserRouter>
-        </PostProvider>
-      </UserProvider>
+          </PostProvider>
+        </UserProvider>
+      </BrowserRouter>
+
       <GlobalStyle />
     </ThemeProvider>
   )

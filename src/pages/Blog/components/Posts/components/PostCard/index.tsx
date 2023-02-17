@@ -1,25 +1,23 @@
 import { PostCardContainer, PostCardHeader, PostCardResume } from './styles'
-import { formatDistanceToNow } from 'date-fns'
-import { ptBR } from 'date-fns/locale'
+import { formatDate } from '../../../../../../utils/dateFormat'
+import { useNavigate } from 'react-router-dom'
 interface IPostCardProps {
   title: string
   createdAt: string
   body: string
+  number: number
 }
 
-export function PostCard({ title, createdAt, body }: IPostCardProps) {
-  const date = formatDistanceToNow(new Date(new Date(createdAt)), {
-    addSuffix: true,
-    locale: ptBR,
-  })
+export function PostCard({ title, createdAt, body, number }: IPostCardProps) {
+  const navigate = useNavigate()
 
   const resume = `${body.substring(0, 250)} ...`
 
   return (
-    <PostCardContainer>
+    <PostCardContainer onClick={() => navigate('/post', { state: { number } })}>
       <PostCardHeader>
         <h1>{title}</h1>
-        <span>{date}</span>
+        <span>{formatDate(createdAt)}</span>
       </PostCardHeader>
       <PostCardResume>{resume}</PostCardResume>
     </PostCardContainer>

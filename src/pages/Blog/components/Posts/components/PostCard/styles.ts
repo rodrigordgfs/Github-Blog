@@ -30,7 +30,7 @@ export const PostCardHeader = styled.div`
   }
 `
 
-export const PostCardResume = styled.p`
+export const PostCardResume = styled.div`
   color: ${({ theme }) => theme['base-text']};
   font-size: 16px;
   font-weight: 400;
