@@ -20,7 +20,7 @@ export const BlogUserContent = styled.div`
   justify-content: center;
 `
 
-export const BlogUserContentTitle = styled.h1`
+export const BlogUserContentTitle = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
