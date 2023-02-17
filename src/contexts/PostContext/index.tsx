@@ -12,6 +12,7 @@ interface IPostContextType {
   loadingPosts: boolean
   loadingPost: boolean
   handleGetPostByNumber: (number: number) => void
+  getPosts: (query?: string) => void
   handleGoToHome: () => void
 }
 
@@ -104,6 +105,7 @@ export function PostProvider({ children }: IPostProviderProps) {
         totalPosts,
         post,
         handleGetPostByNumber,
+        getPosts,
         handleGoToHome,
         loadingPost,
         loadingPosts,

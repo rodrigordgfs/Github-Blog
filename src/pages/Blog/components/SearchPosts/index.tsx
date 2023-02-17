@@ -5,14 +5,35 @@ import {
   SearchPostsContainer,
 } from './styles'
 import { PostContext } from '../../../../contexts/PostContext'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+
+const SearchPostsSchema = z.object({
+  query: z.string(),
+})
+
+type SearchPostsInputs = z.infer<typeof SearchPostsSchema>
 
 export function SearchPosts() {
-  const { totalPosts, loadingPosts } = useContextSelector(
+  const { totalPosts, loadingPosts, getPosts } = useContextSelector(
     PostContext,
-    ({ totalPosts, loadingPosts }) => {
-      return { totalPosts, loadingPosts }
+    ({ totalPosts, loadingPosts, getPosts }) => {
+      return { totalPosts, loadingPosts, getPosts }
     },
   )
+
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<SearchPostsInputs>({
+    resolver: zodResolver(SearchPostsSchema),
+  })
+
+  async function handleSearchPosts(data: SearchPostsInputs) {
+    await getPosts(data.query)
+  }
 
   return (
     <SearchPostsContainer>
@@ -20,12 +41,13 @@ export function SearchPosts() {
         <h3>Publicações</h3>
         <p>{totalPosts} publicações</p>
       </SearchPostHeader>
-      <SearchPostForm>
+      <SearchPostForm onSubmit={handleSubmit(handleSearchPosts)}>
         <input
           type="text"
-          placeholder="Buscar publicações"
-          disabled={loadingPosts}
-          readOnly={loadingPosts}
+          placeholder="Pressione enter para buscar"
+          disabled={loadingPosts || isSubmitting}
+          readOnly={loadingPosts || isSubmitting}
+          {...register('query')}
         />
       </SearchPostForm>
     </SearchPostsContainer>
