@@ -1,18 +1,27 @@
 import { PostCardContainer, PostCardHeader, PostCardResume } from './styles'
+import { formatDistanceToNow } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
+interface IPostCardProps {
+  title: string
+  createdAt: string
+  body: string
+}
 
-export function PostCard() {
+export function PostCard({ title, createdAt, body }: IPostCardProps) {
+  const date = formatDistanceToNow(new Date(new Date(createdAt)), {
+    addSuffix: true,
+    locale: ptBR,
+  })
+
+  const resume = `${body.substring(0, 250)} ...`
+
   return (
     <PostCardContainer>
       <PostCardHeader>
-        <h1>PostCard</h1>
-        <span>Há 1 dia</span>
+        <h1>{title}</h1>
+        <span>{date}</span>
       </PostCardHeader>
-      <PostCardResume>
-        Programming languages all have built-in data structures, but these often
-        differ from one language to another. This article attempts to list the
-        built-in data structures available in JavaScript and what properties
-        they have. These can be used to build other data structures.
-      </PostCardResume>
+      <PostCardResume>{resume}</PostCardResume>
     </PostCardContainer>
   )
 }

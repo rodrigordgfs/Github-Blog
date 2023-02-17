@@ -13,6 +13,7 @@ export const PostCardHeader = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  gap: 16px;
 
   h1 {
     color: ${({ theme }) => theme['base-title']};
