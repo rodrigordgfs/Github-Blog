@@ -4,6 +4,7 @@ import { PostInfo } from './components/PostInfo'
 import { useEffect } from 'react'
 import { useContextSelector } from 'use-context-selector'
 import { PostContext } from '../../contexts/PostContext'
+import { PostContent } from './components/PostContent'
 
 export function Post() {
   const { state } = useLocation()
@@ -23,6 +24,7 @@ export function Post() {
   return (
     <PostContainer>
       <PostInfo />
+      <PostContent />
     </PostContainer>
   )
 }
