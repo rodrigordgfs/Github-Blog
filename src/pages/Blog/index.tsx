@@ -5,17 +5,23 @@ import { BlogContainer } from './styles'
 import { useContextSelector } from 'use-context-selector'
 import { UserContext } from '../../contexts/UserContext'
 import { UserInfoLoading } from './components/UserInfoLoading'
+import { PostContext } from '../../contexts/PostContext'
+import { PostsLoading } from './components/PostsLoading'
 
 export function Blog() {
   const loadingUser = useContextSelector(UserContext, ({ loadingUser }) => {
     return loadingUser
   })
 
+  const loadingPosts = useContextSelector(PostContext, ({ loadingPosts }) => {
+    return loadingPosts
+  })
+
   return (
     <BlogContainer>
       {loadingUser ? <UserInfoLoading /> : <UserInfo />}
       <SearchPosts />
-      <Posts />
+      {loadingPosts ? <PostsLoading /> : <Posts />}
     </BlogContainer>
   )
 }

@@ -7,9 +7,12 @@ import {
 import { PostContext } from '../../../../contexts/PostContext'
 
 export function SearchPosts() {
-  const { totalPosts } = useContextSelector(PostContext, ({ totalPosts }) => {
-    return { totalPosts }
-  })
+  const { totalPosts, loadingPosts } = useContextSelector(
+    PostContext,
+    ({ totalPosts, loadingPosts }) => {
+      return { totalPosts, loadingPosts }
+    },
+  )
 
   return (
     <SearchPostsContainer>
@@ -18,7 +21,12 @@ export function SearchPosts() {
         <p>{totalPosts} publicações</p>
       </SearchPostHeader>
       <SearchPostForm>
-        <input type="text" placeholder="Buscar publicações" />
+        <input
+          type="text"
+          placeholder="Buscar publicações"
+          disabled={loadingPosts}
+          readOnly={loadingPosts}
+        />
       </SearchPostForm>
     </SearchPostsContainer>
   )

@@ -42,5 +42,11 @@ export const SearchPostForm = styled.form`
     &::placeholder {
       color: ${({ theme }) => theme['base-label']};
     }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+    }
   }
 `

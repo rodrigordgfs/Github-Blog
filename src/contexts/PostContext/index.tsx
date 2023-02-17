@@ -3,11 +3,14 @@ import { IPost } from '../../interfaces/IPost'
 import { createContext } from 'use-context-selector'
 import { api } from '../../lib/axios'
 import { useNavigate } from 'react-router-dom'
+import { errorMessage } from '../../utils/toastify'
 
 interface IPostContextType {
   posts: IPost[]
   post: IPost
   totalPosts: number
+  loadingPosts: boolean
+  loadingPost: boolean
   handleGetPostByNumber: (number: number) => void
   handleGoToHome: () => void
 }
@@ -22,6 +25,8 @@ export function PostProvider({ children }: IPostProviderProps) {
   const [posts, setPosts] = useState<IPost[]>([] as IPost[])
   const [post, setPost] = useState<IPost>({} as IPost)
   const [totalPosts, setTotalPosts] = useState(0)
+  const [loadingPosts, setLoadingPosts] = useState(true)
+  const [loadingPost, setLoadingPost] = useState(true)
 
   const navigate = useNavigate()
 
@@ -49,6 +54,11 @@ export function PostProvider({ children }: IPostProviderProps) {
           ),
         )
         setTotalPosts(data?.total_count)
+        setLoadingPosts(false)
+      })
+      .catch(() => {
+        errorMessage('Não foi possível carregar os posts')
+        setLoadingPosts(false)
       })
   }, [])
 
@@ -66,6 +76,11 @@ export function PostProvider({ children }: IPostProviderProps) {
           user: data?.user?.login,
           number: data?.number,
         } as IPost)
+        setLoadingPost(false)
+      })
+      .catch(() => {
+        errorMessage('Não foi possível carregar o post')
+        setLoadingPost(false)
       })
   }, [])
 
@@ -84,7 +99,15 @@ export function PostProvider({ children }: IPostProviderProps) {
 
   return (
     <PostContext.Provider
-      value={{ posts, totalPosts, post, handleGetPostByNumber, handleGoToHome }}
+      value={{
+        posts,
+        totalPosts,
+        post,
+        handleGetPostByNumber,
+        handleGoToHome,
+        loadingPost,
+        loadingPosts,
+      }}
     >
       {children}
     </PostContext.Provider>

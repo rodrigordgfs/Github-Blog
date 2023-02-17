@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const PostCardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20xp;
+  gap: 20px;
   padding: 32px;
   border-radius: 10px;
   background: ${({ theme }) => theme['base-post']};
